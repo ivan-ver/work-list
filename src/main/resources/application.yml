@@ -1,0 +1,27 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: scope-of-work
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/scope-of-work
+    username: postgres
+    password: postgres
+
+  liquibase:
+    enabled: true
+    default-schema: public
+    change-log: classpath:db/changelog/db-changelog-master.xml
+    drop-first: false
+    user: postgres
+    password: postgres
+    liquibase-schema: public
+    test-rollback-on-update: true
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true

@@ -1,0 +1,295 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="1.0.1" author="ivan" failOnError="true">
+        <sql>CREATE SCHEMA main</sql>
+        <rollback>
+            <sql>DROP SCHEMA main</sql>
+        </rollback>
+    </changeSet>
+    <changeSet id="1.0.2" author="ivan" failOnError="true">
+        <createTable schemaName="main" tableName="label_status">
+            <column name="id" type="bigserial">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_label_status_id"/>
+            </column>
+            <column name="code" type="varchar(20)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createTable schemaName="main" tableName="sow">
+            <column name="id" type="bigint" remarks="id">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_sow_id"/>
+            </column>
+            <column name="label_number" type="varchar(130)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="label_type_code" type="varchar(20)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="label_swc_quantity" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="label_swc_progress" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ws_position" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ws_reference" type="varchar(20)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ws_is_key" type="boolean">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ws_is_gate" type="boolean">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ws_is_na" type="boolean">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ws_weight" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ws_progress" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ws_inspection_id" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ws_inspection_rf_number" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="prog_year_week_no" type="varchar(20)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="gwbs_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="fwbs_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name=" swc_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="wc_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="label_status_id" type="int">
+                <constraints nullable="true" references="main.label_status(id)" foreignKeyName="status_label_fk"/>
+            </column>
+            <column name="contract_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="mu_id" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="label_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type=" timestamp">
+                <constraints nullable="true"/>
+            </column>
+            <column name="work_step_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="eqv_key_qty" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="eqv_qty" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="qcf_code_id" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ws_real_position" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createTable schemaName="main" tableName="label_description">
+            <column name="id" type="bigserial">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_label_description_id"/>
+            </column>
+            <column name="name" type="varchar(350)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createTable schemaName="main" tableName="label">
+            <column name="id" type="bigserial">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_label_id"/>
+            </column>
+            <column name="number" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="is_spool" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="type_code" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="unit_code" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="scl_code" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="old_label_name" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="parent_label" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="source" type="varchar(80)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="yard" type="varchar(80)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="record_status" type="varchar(30)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_modified_date" type=" timestamp(0)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="drawing_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="discipline_id" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="gwbs_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="fwbs_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="description_id" type="bigint">
+                <constraints nullable="true" references="main.label_description(id)" foreignKeyName="description_label_fk"/>
+            </column>
+            <column name="status_id" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="prospect" type="bigint" defaultValue="0">
+                <constraints nullable="true"/>
+            </column>
+            <column name="gencow " type="varchar(20)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="requester" type="varchar(150)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="jc_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="changed_by" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="gen_loc_deck" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="gen_loc_room" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="is_dummy" type="boolean" defaultValue="false">
+                <constraints nullable="true"/>
+            </column>
+            <column name="progress" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="drawing_rev" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="comment" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createTable schemaName="main" tableName="label_discipline">
+            <column name="id" type="bigserial">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_label_discipline_id"/>
+            </column>
+            <column name="label_id" type="bigint">
+                <constraints nullable="false" references="main.label(id)" foreignKeyName="label_discipline_label_fk"/>
+            </column>
+            <column name="discipline_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createTable schemaName="main"  tableName="label_contract">
+            <column name="id" type="bigserial">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_label_contract_id"/>
+            </column>
+            <column name="label_id" type="bigint">
+                <constraints nullable="true" references="main.label(id)" foreignKeyName="label_contract_label_fk"/>
+            </column>
+            <column name="contract_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createTable schemaName="main" tableName="label_swc">
+            <column name="id" type="bigserial">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_label_swc_id"/>
+            </column>
+            <column name="label_id" type="bigint">
+                <constraints nullable="false" references="main.label(id)" foreignKeyName="label_swc_label_fk"/>
+            </column>
+            <column name="swc_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="swc_count" type="numeric">
+                <constraints nullable="true"/>
+            </column>
+            <column name="label_swc_qty" type="numeric">
+                <constraints nullable="true"/>
+            </column>
+            <column name="linked" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_assignment_date" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+            <column name="assignment_by" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="requester" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="comment" type="varchar(1000)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="comment_date" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createTable schemaName="main" tableName="label_swc_ws">
+            <column name="id" type="bigserial">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_label_swc_ws_id"/>
+            </column>
+            <column name="label_swc_id" type="bigint">
+                <constraints nullable="false" references="main.label_swc(id)" foreignKeyName="label_swc_ws_label_fk"/>
+            </column>
+            <column name="ws_id" type="bigint not null">
+                <constraints nullable="true"/>
+            </column>
+            <column name="requester" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="comment" type="varchar(1000)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="comment_date" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="label_description" schemaName="main" cascadeConstraints="true"/>
+            <dropTable tableName="label_status" schemaName="main" cascadeConstraints="true"/>
+            <dropTable tableName="label_discipline" schemaName="main" cascadeConstraints="true"/>
+            <dropTable tableName="label_contract" schemaName="main" cascadeConstraints="true"/>
+            <dropTable tableName="sow" schemaName="main" cascadeConstraints="true"/>
+            <dropTable tableName="label" schemaName="main" cascadeConstraints="true"/>
+            <dropTable tableName="label_swc" schemaName="main" cascadeConstraints="true"/>
+            <dropTable tableName="label_swc_ws" schemaName="main" cascadeConstraints="true"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
